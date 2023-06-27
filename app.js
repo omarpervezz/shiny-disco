@@ -87,7 +87,8 @@ function clearInputBox(){
         searchText.value = "";
         filterElement('all');
         // hide the close element if there is no search text
-        close.style.display = 'none'
+        close.style.display = 'none';
+        searchText.classList.remove('active_input')
     }
     addActiveClass();
  })
@@ -102,6 +103,7 @@ searchText.addEventListener('keydown', function(event) {
     close.style.display = 'none';
     filterElement('all');
     addActiveClass();
+    searchText.classList.remove('active_input')
   }
 });
 
@@ -111,7 +113,6 @@ function addActiveClass(value){
     const elementKey = document.getElementsByClassName('key_container');
     for(let i = 0; i < elementKey.length; i++){
         let nameSpliting = elementKey[i].className.split(" ");
-      console.log(nameSpliting);
       if(nameSpliting[1] == value){
         elementKey[i].classList.add('active')
       }else{
@@ -137,7 +138,17 @@ window.addEventListener('scroll', function() {
     }
   });
   
-
+  // shortcut command settup
+  document.addEventListener('keydown', function(event) {
+    const searchText = document.getElementById('search__bar');
+    // Check if the Ctrl key (or Command key on Mac) and the desired key is pressed
+    if ((event.altKey || event.metaKey) && event.key === 'c') {
+      // Perform your desired action here
+      searchText.focus();
+      searchText.classList.add('active_input')
+    }
+  });
+  
 
 printShortcuts()
 filtering();
